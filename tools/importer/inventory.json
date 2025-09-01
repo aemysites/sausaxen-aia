@@ -1,0 +1,464 @@
+{
+  "fragments": [
+    {
+      "name": "nav",
+      "path": "/nav",
+      "totalBoxes": 1,
+      "instances": [
+        {
+          "url": "https://www.airindia.com/in/en/book/seamless-global-connectivity.html",
+          "urlHash": "79bc07112e1f675cdc2668ab6ff6e34d5db51dee",
+          "uuid": "79bc0711-00-9453a68e2958a569507872eb0bc981f1f3cf1372",
+          "xpath": "/html[1]/body[1]/div[1]/div[1]/div[1]/main[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[2]"
+        },
+        {
+          "url": "https://www.airindia.com/in/en/tata-neu-hdfc-credit-card-offers.html",
+          "urlHash": "8dc957bcc241bb6b3966b0be3dd2c1d3c2ee1b0a",
+          "uuid": "8dc957bc-00-884783de166f089589a5d5fb68ca426a261bebeb",
+          "xpath": "/html[1]/body[1]/div[1]/div[1]/div[1]/main[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]"
+        },
+        {
+          "url": "https://www.airindia.com/in/en/book/exclusive-deals/sbi-card-offer.html",
+          "urlHash": "da2556b4ba89a92affccaa586830135df54aaf91",
+          "uuid": "da2556b4-00-c822b505071dae63729daef3ed0f9c3b6ef7f12f",
+          "xpath": "/html[1]/body[1]/div[1]/div[1]/div[1]/main[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[2]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/img[1]"
+        },
+        {
+          "url": "https://www.airindia.com/in/en/book/exclusive-deals/amex-offer.html",
+          "urlHash": "f8c8c1edde19fc0de1e28ad95dfc324d821bc1c0",
+          "uuid": "f8c8c1ed-00-f48cbdc51ea1a81dc0fca3d983ffdbca4687885e",
+          "xpath": "/html[1]/body[1]/div[1]/div[1]/div[1]/main[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[2]/div[1]/div[1]/div[1]"
+        }
+      ],
+      "styles": {
+        "height": 415
+      }
+    },
+    {
+      "name": "footer",
+      "path": "/footer",
+      "totalBoxes": 1,
+      "instances": [
+        {
+          "url": "https://www.airindia.com/in/en/book/seamless-global-connectivity.html",
+          "urlHash": "79bc07112e1f675cdc2668ab6ff6e34d5db51dee",
+          "uuid": "79bc0711-10-43d6b197520051945d433b3004e909ea4e3accb3",
+          "xpath": "/html[1]/body[1]/div[1]/div[1]/div[1]/footer[1]"
+        },
+        {
+          "url": "https://www.airindia.com/in/en/tata-neu-hdfc-credit-card-offers.html",
+          "urlHash": "8dc957bcc241bb6b3966b0be3dd2c1d3c2ee1b0a",
+          "uuid": "8dc957bc-10-43d6b197520051945d433b3004e909ea4e3accb3",
+          "xpath": "/html[1]/body[1]/div[1]/div[1]/div[1]/footer[1]"
+        },
+        {
+          "url": "https://www.airindia.com/in/en/book/exclusive-deals/sbi-card-offer.html",
+          "urlHash": "da2556b4ba89a92affccaa586830135df54aaf91",
+          "uuid": "da2556b4-13-43d6b197520051945d433b3004e909ea4e3accb3",
+          "xpath": "/html[1]/body[1]/div[1]/div[1]/div[1]/footer[1]"
+        },
+        {
+          "url": "https://www.airindia.com/in/en/book/exclusive-deals/amex-offer.html",
+          "urlHash": "f8c8c1edde19fc0de1e28ad95dfc324d821bc1c0",
+          "uuid": "f8c8c1ed-05-43d6b197520051945d433b3004e909ea4e3accb3",
+          "xpath": "/html[1]/body[1]/div[1]/div[1]/div[1]/footer[1]"
+        }
+      ],
+      "styles": {
+        "background": "url(\"https://www.airindia.com/content/dam/air-india/airindia-rebrand/background-patterns/header-pattern.svg\") repeat-x scroll 0% 0% / auto padding-box border-box, rgba(0, 0, 0, 0) linear-gradient(0deg, rgb(249, 246, 238), rgb(249, 246, 238)) repeat scroll 0% 0% / auto padding-box border-box"
+      }
+    }
+  ],
+  "blocks": [
+    {
+      "name": "Columns",
+      "cluster": 1,
+      "source": "Columns",
+      "target": "Columns (columns1)",
+      "key": "columns1",
+      "instances": [
+        {
+          "url": "https://www.airindia.com/in/en/book/seamless-global-connectivity.html",
+          "urlHash": "79bc07112e1f675cdc2668ab6ff6e34d5db51dee",
+          "uuid": "79bc0711-01-e8ed659025ccd23f72b770f87828f2901bd213f7",
+          "xpath": "/html[1]/body[1]/div[1]/div[1]/div[1]/main[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[3]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/ai-bookingwidget[1]/div[1]/ai-search-flight[1]/slot-fb[1]/div[1]",
+          "section": "section-1"
+        },
+        {
+          "url": "https://www.airindia.com/in/en/tata-neu-hdfc-credit-card-offers.html",
+          "urlHash": "8dc957bcc241bb6b3966b0be3dd2c1d3c2ee1b0a",
+          "uuid": "8dc957bc-02-e8ed659025ccd23f72b770f87828f2901bd213f7",
+          "xpath": "/html[1]/body[1]/div[1]/div[1]/div[1]/main[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[3]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/ai-bookingwidget[1]/div[1]/ai-search-flight[1]/slot-fb[1]/div[1]",
+          "section": "section-1"
+        },
+        {
+          "url": "https://www.airindia.com/in/en/book/exclusive-deals/sbi-card-offer.html",
+          "urlHash": "da2556b4ba89a92affccaa586830135df54aaf91",
+          "uuid": "da2556b4-01-e8ed659025ccd23f72b770f87828f2901bd213f7",
+          "xpath": "/html[1]/body[1]/div[1]/div[1]/div[1]/main[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[3]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/ai-bookingwidget[1]/div[1]/ai-search-flight[1]/slot-fb[1]/div[1]",
+          "section": "section-1"
+        },
+        {
+          "url": "https://www.airindia.com/in/en/book/exclusive-deals/amex-offer.html",
+          "urlHash": "f8c8c1edde19fc0de1e28ad95dfc324d821bc1c0",
+          "uuid": "f8c8c1ed-01-6eb549b63fc2f55998249f79afb4e1325fdf944d",
+          "xpath": "/html[1]/body[1]/div[1]/div[1]/div[1]/main[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[2]/div[1]/div[1]/div[2]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/ai-bookingwidget[1]/div[1]/ai-search-flight[1]/slot-fb[1]/div[1]",
+          "section": "section-1"
+        }
+      ]
+    },
+    {
+      "name": "unknown",
+      "cluster": 2,
+      "instances": [
+        {
+          "url": "https://www.airindia.com/in/en/book/seamless-global-connectivity.html",
+          "urlHash": "79bc07112e1f675cdc2668ab6ff6e34d5db51dee",
+          "uuid": "79bc0711-02-2fd5bdd7906e8289884ee135007b00825fc1006f",
+          "xpath": "/html[1]/body[1]/div[1]/div[1]/div[1]/main[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[3]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/ai-bookingwidget[1]/div[1]/ai-search-flight[1]/slot-fb[1]/div[3]",
+          "section": "section-1"
+        },
+        {
+          "url": "https://www.airindia.com/in/en/tata-neu-hdfc-credit-card-offers.html",
+          "urlHash": "8dc957bcc241bb6b3966b0be3dd2c1d3c2ee1b0a",
+          "uuid": "8dc957bc-03-2fd5bdd7906e8289884ee135007b00825fc1006f",
+          "xpath": "/html[1]/body[1]/div[1]/div[1]/div[1]/main[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[3]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/ai-bookingwidget[1]/div[1]/ai-search-flight[1]/slot-fb[1]/div[3]",
+          "section": "section-1"
+        },
+        {
+          "url": "https://www.airindia.com/in/en/book/exclusive-deals/sbi-card-offer.html",
+          "urlHash": "da2556b4ba89a92affccaa586830135df54aaf91",
+          "uuid": "da2556b4-02-2fd5bdd7906e8289884ee135007b00825fc1006f",
+          "xpath": "/html[1]/body[1]/div[1]/div[1]/div[1]/main[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[3]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/ai-bookingwidget[1]/div[1]/ai-search-flight[1]/slot-fb[1]/div[3]",
+          "section": "section-1"
+        },
+        {
+          "url": "https://www.airindia.com/in/en/book/exclusive-deals/amex-offer.html",
+          "urlHash": "f8c8c1edde19fc0de1e28ad95dfc324d821bc1c0",
+          "uuid": "f8c8c1ed-02-18ecd155346ebe3d10032ebe5eaa8cfbac40bd18",
+          "xpath": "/html[1]/body[1]/div[1]/div[1]/div[1]/main[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[2]/div[1]/div[1]/div[2]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/ai-bookingwidget[1]/div[1]/ai-search-flight[1]/slot-fb[1]/div[3]",
+          "section": "section-1"
+        }
+      ]
+    },
+    {
+      "name": "Columns",
+      "cluster": 3,
+      "source": "Columns",
+      "target": "Columns (columns3)",
+      "key": "columns3",
+      "instances": [
+        {
+          "url": "https://www.airindia.com/in/en/book/seamless-global-connectivity.html",
+          "urlHash": "79bc07112e1f675cdc2668ab6ff6e34d5db51dee",
+          "uuid": "79bc0711-10-43d6b197520051945d433b3004e909ea4e3accb3",
+          "xpath": "/html[1]/body[1]/div[1]/div[1]/div[1]/footer[1]",
+          "section": "section-2"
+        },
+        {
+          "url": "https://www.airindia.com/in/en/tata-neu-hdfc-credit-card-offers.html",
+          "urlHash": "8dc957bcc241bb6b3966b0be3dd2c1d3c2ee1b0a",
+          "uuid": "8dc957bc-10-43d6b197520051945d433b3004e909ea4e3accb3",
+          "xpath": "/html[1]/body[1]/div[1]/div[1]/div[1]/footer[1]",
+          "section": "section-2"
+        },
+        {
+          "url": "https://www.airindia.com/in/en/book/exclusive-deals/sbi-card-offer.html",
+          "urlHash": "da2556b4ba89a92affccaa586830135df54aaf91",
+          "uuid": "da2556b4-13-43d6b197520051945d433b3004e909ea4e3accb3",
+          "xpath": "/html[1]/body[1]/div[1]/div[1]/div[1]/footer[1]",
+          "section": "section-2"
+        },
+        {
+          "url": "https://www.airindia.com/in/en/book/exclusive-deals/amex-offer.html",
+          "urlHash": "f8c8c1edde19fc0de1e28ad95dfc324d821bc1c0",
+          "uuid": "f8c8c1ed-05-43d6b197520051945d433b3004e909ea4e3accb3",
+          "xpath": "/html[1]/body[1]/div[1]/div[1]/div[1]/footer[1]",
+          "section": "section-2"
+        }
+      ]
+    },
+    {
+      "name": "Hero",
+      "cluster": 4,
+      "source": "Hero",
+      "target": "Hero (hero4)",
+      "key": "hero4",
+      "instances": [
+        {
+          "url": "https://www.airindia.com/in/en/book/seamless-global-connectivity.html",
+          "urlHash": "79bc07112e1f675cdc2668ab6ff6e34d5db51dee",
+          "uuid": "79bc0711-00-9453a68e2958a569507872eb0bc981f1f3cf1372",
+          "xpath": "/html[1]/body[1]/div[1]/div[1]/div[1]/main[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[2]"
+        }
+      ]
+    },
+    {
+      "name": "Cards",
+      "cluster": 5,
+      "source": "Cards",
+      "target": "Cards (cards5)",
+      "key": "cards5",
+      "instances": [
+        {
+          "url": "https://www.airindia.com/in/en/book/seamless-global-connectivity.html",
+          "urlHash": "79bc07112e1f675cdc2668ab6ff6e34d5db51dee",
+          "uuid": "79bc0711-05-f4918868d0d044938a99fd5aba74cdd19374441b",
+          "xpath": "/html[1]/body[1]/div[1]/div[1]/div[1]/main[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[4]/div[1]/div[2]",
+          "section": "section-1"
+        }
+      ]
+    },
+    {
+      "name": "Cards",
+      "cluster": 6,
+      "source": "Cards",
+      "target": "Cards (cards6)",
+      "key": "cards6",
+      "instances": [
+        {
+          "url": "https://www.airindia.com/in/en/book/seamless-global-connectivity.html",
+          "urlHash": "79bc07112e1f675cdc2668ab6ff6e34d5db51dee",
+          "uuid": "79bc0711-07-b628b3b3e1deefb69792112fb43e6d8119ad631b",
+          "xpath": "/html[1]/body[1]/div[1]/div[1]/div[1]/main[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[4]/div[1]/div[4]",
+          "section": "section-1"
+        }
+      ]
+    },
+    {
+      "name": "Hero",
+      "cluster": 8,
+      "source": "Hero",
+      "target": "Hero (hero8)",
+      "key": "hero8",
+      "instances": [
+        {
+          "url": "https://www.airindia.com/in/en/tata-neu-hdfc-credit-card-offers.html",
+          "urlHash": "8dc957bcc241bb6b3966b0be3dd2c1d3c2ee1b0a",
+          "uuid": "8dc957bc-01-9453a68e2958a569507872eb0bc981f1f3cf1372",
+          "xpath": "/html[1]/body[1]/div[1]/div[1]/div[1]/main[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[2]",
+          "section": "section-3"
+        }
+      ]
+    },
+    {
+      "name": "Hero",
+      "cluster": 9,
+      "source": "Hero",
+      "target": "Hero (hero9)",
+      "key": "hero9",
+      "instances": [
+        {
+          "url": "https://www.airindia.com/in/en/tata-neu-hdfc-credit-card-offers.html",
+          "urlHash": "8dc957bcc241bb6b3966b0be3dd2c1d3c2ee1b0a",
+          "uuid": "8dc957bc-00-884783de166f089589a5d5fb68ca426a261bebeb",
+          "xpath": "/html[1]/body[1]/div[1]/div[1]/div[1]/main[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]",
+          "section": "section-3"
+        }
+      ]
+    },
+    {
+      "name": "Hero",
+      "cluster": 10,
+      "source": "Hero",
+      "target": "Hero (hero10)",
+      "key": "hero10",
+      "instances": [
+        {
+          "url": "https://www.airindia.com/in/en/book/exclusive-deals/amex-offer.html",
+          "urlHash": "f8c8c1edde19fc0de1e28ad95dfc324d821bc1c0",
+          "uuid": "f8c8c1ed-00-f48cbdc51ea1a81dc0fca3d983ffdbca4687885e",
+          "xpath": "/html[1]/body[1]/div[1]/div[1]/div[1]/main[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[2]/div[1]/div[1]/div[1]"
+        }
+      ]
+    }
+  ],
+  "outliers": [
+    {
+      "url": "https://www.airindia.com/in/en/book/seamless-global-connectivity.html",
+      "urlHash": "79bc07112e1f675cdc2668ab6ff6e34d5db51dee",
+      "uuid": "79bc0711-03-adf0aca743ff88d0bcf3f98aef6be9674eff6f0a",
+      "xpath": "/html[1]/body[1]/div[1]/div[1]/div[1]/main[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[3]/div[1]/div[2]"
+    },
+    {
+      "url": "https://www.airindia.com/in/en/book/seamless-global-connectivity.html",
+      "urlHash": "79bc07112e1f675cdc2668ab6ff6e34d5db51dee",
+      "uuid": "79bc0711-04-d20bd2c7d45256bbfbd19889fa3fa2ecf9bfdf36",
+      "xpath": "/html[1]/body[1]/div[1]/div[1]/div[1]/main[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[4]/div[1]/div[1]",
+      "section": "section-1"
+    },
+    {
+      "url": "https://www.airindia.com/in/en/book/seamless-global-connectivity.html",
+      "urlHash": "79bc07112e1f675cdc2668ab6ff6e34d5db51dee",
+      "uuid": "79bc0711-06-9daf5f20fb4b3103f09aaab64728498fd9bee9b8",
+      "xpath": "/html[1]/body[1]/div[1]/div[1]/div[1]/main[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[4]/div[1]/div[3]",
+      "section": "section-1"
+    },
+    {
+      "url": "https://www.airindia.com/in/en/book/seamless-global-connectivity.html",
+      "urlHash": "79bc07112e1f675cdc2668ab6ff6e34d5db51dee",
+      "uuid": "79bc0711-08-f6545c4f0328bb34aa7ba2d9b01f956a8ba55533",
+      "xpath": "/html[1]/body[1]/div[1]/div[1]/div[1]/main[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[4]/div[1]/div[5]",
+      "section": "section-1"
+    },
+    {
+      "url": "https://www.airindia.com/in/en/book/seamless-global-connectivity.html",
+      "urlHash": "79bc07112e1f675cdc2668ab6ff6e34d5db51dee",
+      "uuid": "79bc0711-09-3538485a739c9b26214d10f705aa126d3b0746f5",
+      "xpath": "/html[1]/body[1]/div[1]/div[1]/div[1]/main[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[5]",
+      "section": "section-1"
+    },
+    {
+      "url": "https://www.airindia.com/in/en/tata-neu-hdfc-credit-card-offers.html",
+      "urlHash": "8dc957bcc241bb6b3966b0be3dd2c1d3c2ee1b0a",
+      "uuid": "8dc957bc-04-adf0aca743ff88d0bcf3f98aef6be9674eff6f0a",
+      "xpath": "/html[1]/body[1]/div[1]/div[1]/div[1]/main[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[3]/div[1]/div[2]",
+      "section": "section-3"
+    },
+    {
+      "url": "https://www.airindia.com/in/en/tata-neu-hdfc-credit-card-offers.html",
+      "urlHash": "8dc957bcc241bb6b3966b0be3dd2c1d3c2ee1b0a",
+      "uuid": "8dc957bc-05-707eb8215f24aa52e709cbb748fcdbf3b44ddc9f",
+      "xpath": "/html[1]/body[1]/div[1]/div[1]/div[1]/main[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[4]",
+      "section": "section-1"
+    },
+    {
+      "url": "https://www.airindia.com/in/en/tata-neu-hdfc-credit-card-offers.html",
+      "urlHash": "8dc957bcc241bb6b3966b0be3dd2c1d3c2ee1b0a",
+      "uuid": "8dc957bc-06-3538485a739c9b26214d10f705aa126d3b0746f5",
+      "xpath": "/html[1]/body[1]/div[1]/div[1]/div[1]/main[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[5]",
+      "section": "section-1"
+    },
+    {
+      "url": "https://www.airindia.com/in/en/tata-neu-hdfc-credit-card-offers.html",
+      "urlHash": "8dc957bcc241bb6b3966b0be3dd2c1d3c2ee1b0a",
+      "uuid": "8dc957bc-07-4525e7e29be11890985266880bc4e31a17f6de85",
+      "xpath": "/html[1]/body[1]/div[1]/div[1]/div[1]/main[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[6]",
+      "section": "section-1"
+    },
+    {
+      "url": "https://www.airindia.com/in/en/tata-neu-hdfc-credit-card-offers.html",
+      "urlHash": "8dc957bcc241bb6b3966b0be3dd2c1d3c2ee1b0a",
+      "uuid": "8dc957bc-08-2a4c2622c78a8ff89d4bb4f414f5baea177a720f",
+      "xpath": "/html[1]/body[1]/div[1]/div[1]/div[1]/main[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[7]",
+      "section": "section-1"
+    },
+    {
+      "url": "https://www.airindia.com/in/en/tata-neu-hdfc-credit-card-offers.html",
+      "urlHash": "8dc957bcc241bb6b3966b0be3dd2c1d3c2ee1b0a",
+      "uuid": "8dc957bc-09-2d38049d2d6ecf3403df47e09bf5fba219487745",
+      "xpath": "/html[1]/body[1]/div[1]/div[1]/div[1]/main[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[8]",
+      "section": "section-4"
+    },
+    {
+      "url": "https://www.airindia.com/in/en/book/exclusive-deals/sbi-card-offer.html",
+      "urlHash": "da2556b4ba89a92affccaa586830135df54aaf91",
+      "uuid": "da2556b4-00-c822b505071dae63729daef3ed0f9c3b6ef7f12f",
+      "xpath": "/html[1]/body[1]/div[1]/div[1]/div[1]/main[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[2]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/img[1]"
+    },
+    {
+      "url": "https://www.airindia.com/in/en/book/exclusive-deals/sbi-card-offer.html",
+      "urlHash": "da2556b4ba89a92affccaa586830135df54aaf91",
+      "uuid": "da2556b4-03-707eb8215f24aa52e709cbb748fcdbf3b44ddc9f",
+      "xpath": "/html[1]/body[1]/div[1]/div[1]/div[1]/main[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[4]"
+    },
+    {
+      "url": "https://www.airindia.com/in/en/book/exclusive-deals/sbi-card-offer.html",
+      "urlHash": "da2556b4ba89a92affccaa586830135df54aaf91",
+      "uuid": "da2556b4-04-f6b450657a6b81ad0c857d6db4f876e3f9224e49",
+      "xpath": "/html[1]/body[1]/div[1]/div[1]/div[1]/main[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[5]/div[1]/div[1]/div[1]/h2[1]",
+      "section": "section-1"
+    },
+    {
+      "url": "https://www.airindia.com/in/en/book/exclusive-deals/sbi-card-offer.html",
+      "urlHash": "da2556b4ba89a92affccaa586830135df54aaf91",
+      "uuid": "da2556b4-05-75296846402b1f4950400722a41b46b1ccca1fed",
+      "xpath": "/html[1]/body[1]/div[1]/div[1]/div[1]/main[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[5]/div[1]/div[1]/div[1]/h3[1]",
+      "section": "section-1"
+    },
+    {
+      "url": "https://www.airindia.com/in/en/book/exclusive-deals/sbi-card-offer.html",
+      "urlHash": "da2556b4ba89a92affccaa586830135df54aaf91",
+      "uuid": "da2556b4-06-a1e09928663b01589ec6d6e734b3a45a49fcc832",
+      "xpath": "/html[1]/body[1]/div[1]/div[1]/div[1]/main[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[5]/div[1]/div[1]/div[1]/ul[1]",
+      "section": "section-1"
+    },
+    {
+      "url": "https://www.airindia.com/in/en/book/exclusive-deals/sbi-card-offer.html",
+      "urlHash": "da2556b4ba89a92affccaa586830135df54aaf91",
+      "uuid": "da2556b4-07-64528c0d380536b0de534a808b6f5de485e3fb7d",
+      "xpath": "/html[1]/body[1]/div[1]/div[1]/div[1]/main[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[5]/div[1]/div[1]/div[1]/p[1]",
+      "section": "section-1"
+    },
+    {
+      "url": "https://www.airindia.com/in/en/book/exclusive-deals/sbi-card-offer.html",
+      "urlHash": "da2556b4ba89a92affccaa586830135df54aaf91",
+      "uuid": "da2556b4-08-83109d37d1a5b715ad47a81d8d1c89cb812f56e7",
+      "xpath": "/html[1]/body[1]/div[1]/div[1]/div[1]/main[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[5]/div[1]/div[1]/div[1]/table[1]",
+      "section": "section-1"
+    },
+    {
+      "url": "https://www.airindia.com/in/en/book/exclusive-deals/sbi-card-offer.html",
+      "urlHash": "da2556b4ba89a92affccaa586830135df54aaf91",
+      "uuid": "da2556b4-09-5c95b28f601cd6b6dcae43bd45f0cc72b38ec701",
+      "xpath": "/html[1]/body[1]/div[1]/div[1]/div[1]/main[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[5]/div[1]/div[1]/div[1]/p[2]",
+      "section": "section-1"
+    },
+    {
+      "url": "https://www.airindia.com/in/en/book/exclusive-deals/sbi-card-offer.html",
+      "urlHash": "da2556b4ba89a92affccaa586830135df54aaf91",
+      "uuid": "da2556b4-10-e4e744efa6de2fa1b756f331d44fdf01640b648a",
+      "xpath": "/html[1]/body[1]/div[1]/div[1]/div[1]/main[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[5]/div[1]/div[1]/div[1]/p[3]",
+      "section": "section-1"
+    },
+    {
+      "url": "https://www.airindia.com/in/en/book/exclusive-deals/sbi-card-offer.html",
+      "urlHash": "da2556b4ba89a92affccaa586830135df54aaf91",
+      "uuid": "da2556b4-11-7569a92f98f38a985f93ef6ec2ba69b81f7480ce",
+      "xpath": "/html[1]/body[1]/div[1]/div[1]/div[1]/main[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[5]/div[1]/div[1]/div[1]/h3[2]",
+      "section": "section-1"
+    },
+    {
+      "url": "https://www.airindia.com/in/en/book/exclusive-deals/sbi-card-offer.html",
+      "urlHash": "da2556b4ba89a92affccaa586830135df54aaf91",
+      "uuid": "da2556b4-12-993771d262fd6941b1da169f0e76a5057a32d6cf",
+      "xpath": "/html[1]/body[1]/div[1]/div[1]/div[1]/main[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[5]/div[1]/div[1]/div[1]/ul[2]",
+      "section": "section-1"
+    },
+    {
+      "url": "https://www.airindia.com/in/en/book/exclusive-deals/amex-offer.html",
+      "urlHash": "f8c8c1edde19fc0de1e28ad95dfc324d821bc1c0",
+      "uuid": "f8c8c1ed-03-52bbcc48e4905c0c16148941b4075c4d934d9068",
+      "xpath": "/html[1]/body[1]/div[1]/div[1]/div[1]/main[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[2]/div[1]/div[1]/div[3]"
+    },
+    {
+      "url": "https://www.airindia.com/in/en/book/exclusive-deals/amex-offer.html",
+      "urlHash": "f8c8c1edde19fc0de1e28ad95dfc324d821bc1c0",
+      "uuid": "f8c8c1ed-04-b02868e1d3683df512682fd54b45fa6026fcd51b",
+      "xpath": "/html[1]/body[1]/div[1]/div[1]/div[1]/main[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[3]",
+      "section": "section-1"
+    }
+  ],
+  "sections": [
+    {
+      "name": "section-1",
+      "background": "rgb(255, 255, 255) none repeat scroll 0% 0% / auto padding-box border-box",
+      "count": 28
+    },
+    {
+      "name": "section-2",
+      "background": "url(\"https://www.airindia.com/content/dam/air-india/airindia-rebrand/background-patterns/header-pattern.svg\") repeat-x scroll 0% 0% / auto padding-box border-box, rgba(0, 0, 0, 0) linear-gradient(0deg, rgb(249, 246, 238), rgb(249, 246, 238)) repeat scroll 0% 0% / auto padding-box border-box",
+      "count": 4
+    },
+    {
+      "name": "section-3",
+      "background": "rgb(242, 242, 242) none repeat scroll 0% 0% / auto padding-box border-box",
+      "count": 3
+    },
+    {
+      "name": "section-4",
+      "background": "rgb(239, 246, 255) none repeat scroll 0% 0% / auto padding-box border-box",
+      "count": 1
+    }
+  ]
+}
