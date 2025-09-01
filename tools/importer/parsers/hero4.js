@@ -1,51 +1,40 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  // Find the block root
-  const bannerBlock = element.querySelector('.partnerBannerWithText');
-  if (!bannerBlock) return;
+  // Table header: matches example, only one column
+  const headerRow = ['Hero (hero4)'];
 
-  // Find .banner inside block
-  const banner = bannerBlock.querySelector('.banner');
-  if (!banner) return;
-
-  // Find background image (prefer desktop)
-  const imgs = banner.querySelectorAll('img');
-  const bgImg = imgs.length > 0 ? imgs[0] : null;
-
-  // Find the text content block
-  const content = banner.querySelector('.content.partner-banner');
-  let textContentEls = [];
-  if (content) {
-    // Find all variations: .partner-banner-web-text, .partner-banner-tablet-text, .partner-banner-mobile-text
-    const allTextBlocks = content.querySelectorAll('.partner-banner-web-text, .partner-banner-tablet-text, .partner-banner-mobile-text');
-    allTextBlocks.forEach(block => {
-      // Collect only element children (not comments or empty text nodes)
-      Array.from(block.childNodes).forEach(node => {
-        if (node.nodeType === 1 && node.textContent.trim()) {
-          textContentEls.push(node);
-        }
-      });
-    });
-    // If nothing found, fallback to all element children of content
-    if (textContentEls.length === 0) {
-      Array.from(content.children).forEach(node => {
-        if (node.textContent.trim()) {
-          textContentEls.push(node);
-        }
-      });
-    }
+  // --- IMAGE ROW ---
+  // Find the most prominent image
+  // Prefer images inside a banner sub-block, fallback to first image found
+  let img = null;
+  let bannerImgCandidates = element.querySelectorAll('img');
+  if (bannerImgCandidates.length > 0) {
+    img = bannerImgCandidates[0];
   }
+  const imageRow = [img ? img : ''];
 
-  // Build table rows
-  const rows = [];
-  // 1. Header row, must match example exactly
-  rows.push(['Hero (hero4)']);
-  // 2. Image row (background image)
-  rows.push([bgImg ? bgImg : '']);
-  // 3. Text row (all text elements grouped)
-  rows.push([textContentEls.length > 0 ? textContentEls : '']);
+  // --- CONTENT ROW ---
+  // Gather all text content for hero text from the relevant block
+  // Prefer .partner-banner-web-text, else mobile/tablet, else fallback to most relevant div
+  let textBlock = element.querySelector('.partner-banner-web-text')
+              || element.querySelector('.partner-banner-mobile-text')
+              || element.querySelector('.partner-banner-tablet-text');
+  // If all above fail, fallback to the first div containing a heading
+  if (!textBlock) {
+    textBlock = Array.from(element.querySelectorAll('div')).find(div =>
+      div.querySelector('h1, h2, h3, h4, h5, h6, p')
+    );
+  }
+  // If still missing, fallback to the element itself
+  if (!textBlock) {
+    textBlock = element;
+  }
+  // Place the entire content block in the cell, preserving semantic meaning
+  const contentRow = [textBlock];
 
-  // Create table and replace
-  const blockTable = WebImporter.DOMUtils.createTable(rows, document);
+  // Compose the table rows
+  const cells = [headerRow, imageRow, contentRow];
+  const blockTable = WebImporter.DOMUtils.createTable(cells, document);
+  // Replace the original element with the new block table
   element.replaceWith(blockTable);
 }

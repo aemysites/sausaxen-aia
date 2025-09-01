@@ -11,12 +11,12 @@
  */
 /* global WebImporter */
 /* eslint-disable no-console */
-import hero10Parser from './parsers/hero10.js';
-import columns1Parser from './parsers/columns1.js';
 import hero9Parser from './parsers/hero9.js';
+import hero4Parser from './parsers/hero4.js';
+import hero10Parser from './parsers/hero10.js';
 import cards6Parser from './parsers/cards6.js';
 import cards5Parser from './parsers/cards5.js';
-import hero4Parser from './parsers/hero4.js';
+import columns1Parser from './parsers/columns1.js';
 import hero8Parser from './parsers/hero8.js';
 import columns3Parser from './parsers/columns3.js';
 import headerParser from './parsers/header.js';
@@ -35,12 +35,12 @@ import {
 
 const parsers = {
   metadata: metadataParser,
-  hero10: hero10Parser,
-  columns1: columns1Parser,
   hero9: hero9Parser,
+  hero4: hero4Parser,
+  hero10: hero10Parser,
   cards6: cards6Parser,
   cards5: cards5Parser,
-  hero4: hero4Parser,
+  columns1: columns1Parser,
   hero8: hero8Parser,
   columns3: columns3Parser,
   ...customParsers,
