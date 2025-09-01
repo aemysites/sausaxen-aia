@@ -1,55 +1,52 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  // 1. Create exact header as the example, single column
+  // Header row for the block
   const headerRow = ['Cards (cards6)'];
+  const cardsRows = [];
 
-  // 2. Find the container holding the card columns
-  const cardsContainer = element.querySelector('.row.row-cols-1.row-cols-md-3.row-cols-lg-4.g-4');
+  // Find the cards container
+  const cardsContainer = element.querySelector('.row.row-cols-1');
   if (!cardsContainer) return;
-  const cardCols = Array.from(cardsContainer.children);
 
-  // 3. For each card, extract image and visible text content
-  const rows = cardCols.map(col => {
-    // Find the anchor element containing image and title
-    const cardLink = col.querySelector('a.card-icon') || col.querySelector('a');
-    if (!cardLink) return null;
+  // Get all card columns
+  const cardCols = cardsContainer.querySelectorAll(':scope > .col');
 
-    // Image extraction: always present, keep the original element
+  cardCols.forEach((col) => {
+    // Find the anchor that wraps image and card body
+    const cardLink = col.querySelector('a.card-icon');
+    if (!cardLink) return;
+
+    // Find image
     const img = cardLink.querySelector('img');
 
-    // Text extraction: find all partner_card_body and use any text inside (title, description)
-    const cardBody = cardLink.querySelector('.partner_card_body') || col.querySelector('.partner_card_body');
-    let textCellContents = [];
+    // Build text cell: Capture title plus ANY additional descriptive text from partner_card_body
+    const cardBody = cardLink.querySelector('.partner_card_body');
+    let textCell = [];
     if (cardBody) {
-      // Extract the title
-      const titleDiv = cardBody.querySelector('.partner_title');
-      if (titleDiv && titleDiv.textContent.trim()) {
-        const strong = document.createElement('strong');
-        strong.textContent = titleDiv.textContent.trim();
-        textCellContents.push(strong);
+      // Title as heading
+      const title = cardBody.querySelector('.partner_title');
+      if (title) {
+        const h3 = document.createElement('h3');
+        h3.textContent = title.textContent.trim();
+        textCell.push(h3);
       }
-      // Extract any additional non-empty text nodes directly under cardBody (as description)
-      Array.from(cardBody.childNodes).forEach(node => {
-        if (node.nodeType === 3 && node.textContent.trim()) {
-          // Text node
-          const span = document.createElement('span');
-          span.textContent = node.textContent.trim();
-          textCellContents.push(document.createElement('br'), span);
+      // Collect any remaining non-title text nodes and elements in partner_card_body (future-proof for description)
+      Array.from(cardBody.childNodes).forEach((node) => {
+        if (node !== title) {
+          if (node.nodeType === Node.TEXT_NODE && node.textContent.trim()) {
+            const p = document.createElement('p');
+            p.textContent = node.textContent.trim();
+            textCell.push(p);
+          } else if (node.nodeType === Node.ELEMENT_NODE && !node.classList.contains('partner_title')) {
+            textCell.push(node);
+          }
         }
       });
     }
-    // Fallback: if no cardBody, look for visible text in col
-    if (textCellContents.length === 0) {
-      const text = cardLink.textContent.trim();
-      if (text) textCellContents = [text];
-    }
-    // Compose the card row: [image, text cell]
-    return [img, textCellContents];
-  }).filter(row => row && row[0]); // Only keep valid rows (with image)
+    cardsRows.push([img, textCell.length ? textCell : '']);
+  });
 
-  // 4. Build the final table for the block
-  const cells = [headerRow, ...rows];
-  const block = WebImporter.DOMUtils.createTable(cells, document);
-  // 5. Replace the original element
-  element.replaceWith(block);
+  const cells = [headerRow, ...cardsRows];
+  const blockTable = WebImporter.DOMUtils.createTable(cells, document);
+  element.replaceWith(blockTable);
 }

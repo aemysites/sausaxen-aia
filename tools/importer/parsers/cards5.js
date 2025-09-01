@@ -1,48 +1,43 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  // Header row: block name as in the example
-  const rows = [['Cards (cards5)']];
+  // The header row must match the example: one column, block name only
+  const cells = [['Cards (cards5)']];
 
-  // Locate all card grid columns
-  const cardsContainer = element.querySelector('.row.row-cols-1.row-cols-md-3.row-cols-lg-4.g-4');
-  if (cardsContainer) {
-    Array.from(cardsContainer.children).forEach(col => {
-      const card = col.querySelector('.partner_card');
-      if (!card) return;
-      // First cell: image
-      const img = card.querySelector('.img-area img');
-      const imgEl = img || '';
-
-      // Second cell: structured text content
-      const cardBody = card.querySelector('.partner_card_body');
-      const textFragments = [];
-      if (cardBody) {
-        // Title in strong
-        const titleDiv = cardBody.querySelector('.partner_title');
-        if (titleDiv && titleDiv.textContent.trim()) {
-          const strong = document.createElement('strong');
-          strong.textContent = titleDiv.textContent.trim();
-          textFragments.push(strong);
-        }
-        // Add any additional non-title text (if present)
-        // (In the current HTML, only the title exists, but this keeps things robust)
-        Array.from(cardBody.childNodes).forEach(node => {
-          if (
-            node !== titleDiv &&
-            node.nodeType === Node.TEXT_NODE &&
-            node.textContent.trim()
-          ) {
-            const p = document.createElement('p');
-            p.textContent = node.textContent.trim();
-            textFragments.push(p);
-          }
-        });
+  // Select all card elements
+  const cardCols = element.querySelectorAll('.row.row-cols-1.row-cols-md-3.row-cols-lg-4.g-4 > .col');
+  cardCols.forEach((col) => {
+    const anchor = col.querySelector('.partner_card > a');
+    if (!anchor) return;
+    const img = anchor.querySelector('img');
+    // Compose text content: title and possible description
+    const cardBody = anchor.querySelector('.partner_card_body');
+    const textFragments = [];
+    if (cardBody) {
+      // Title
+      const titleDiv = cardBody.querySelector('.partner_title');
+      if (titleDiv && titleDiv.textContent.trim()) {
+        const titleEl = document.createElement('strong');
+        titleEl.textContent = titleDiv.textContent.trim();
+        textFragments.push(titleEl);
       }
-      // Ensure the cell is never empty (blank string if needed)
-      rows.push([imgEl, textFragments.length ? textFragments : '']);
-    });
-  }
+      // If there is other descriptive content, add it (for flexibility)
+      Array.from(cardBody.children).forEach((child) => {
+        if (
+          child !== titleDiv &&
+          child.textContent &&
+          child.textContent.trim()
+        ) {
+          const descP = document.createElement('p');
+          descP.textContent = child.textContent.trim();
+          textFragments.push(descP);
+        }
+      });
+    }
+    // Each row after header must have two columns: [img, text]
+    cells.push([img, textFragments.length ? textFragments : '']);
+  });
 
-  const table = WebImporter.DOMUtils.createTable(rows, document);
+  // Create and replace the table block
+  const table = WebImporter.DOMUtils.createTable(cells, document);
   element.replaceWith(table);
 }

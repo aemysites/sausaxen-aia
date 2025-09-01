@@ -1,78 +1,94 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  // Header row: exactly matches example
-  const headerRow = ['Columns (columns3)'];
-  const cells = [headerRow];
-
-  // Collect all visual columns (footer sections)
-  function getFooterRows(el) {
-    const rows = [];
-    el.querySelectorAll('.container.responsivegrid').forEach(container => {
-      const grid = container.querySelector('.aem-Grid');
-      if (grid) {
-        const cols = Array.from(grid.querySelectorAll(':scope > .footerComponent'));
-        if (cols.length) rows.push(cols);
-      }
-    });
-    return rows;
-  }
-
-  // For each row, process columns, ensuring all content is represented
-  const footerRows = getFooterRows(element);
-  for (const row of footerRows) {
-    const colCells = row.map(col => {
-      // Use the entire visible content block for each column, preserving semantics
-      const body = col.querySelector('.accordion-body');
-      if (body) {
-        // Gather all visible children: <ul>, <p>, <a>, etc.
-        const pieces = [];
-        Array.from(body.children).forEach(node => {
-          // Only include visible and meaningful elements
-          if (node.nodeType === 1 && node.textContent.trim()) {
-            pieces.push(node);
-          }
-        });
-        // If nothing but there is text, include the body itself
-        if (pieces.length === 0 && body.textContent.trim()) {
-          pieces.push(body);
+  // Helper to get all columns from a grid structure
+  function getGridColumns(grid) {
+    const cols = [];
+    // Only direct children that are .footerComponent
+    Array.from(grid.children).forEach(col => {
+      if (col.classList.contains('footerComponent')) {
+        // For main links columns, get the full accordion
+        const accordion = col.querySelector('.accordion');
+        if (accordion) {
+          cols.push(accordion);
+        } else {
+          cols.push(col);
         }
-        // If just one, return that, else return array
-        if (pieces.length === 1) return pieces[0];
-        if (pieces.length) return pieces;
       }
-      // Fallback: use all visible children
-      const fallbackKids = Array.from(col.children).filter(n => n.nodeType === 1 && n.textContent.trim());
-      if (fallbackKids.length === 1) return fallbackKids[0];
-      if (fallbackKids.length) return fallbackKids;
-      // Fallback: just the element itself if it has text
-      if (col.textContent.trim()) return col;
-      return '';
     });
-    cells.push(colCells);
+    return cols;
   }
 
-  // Logo row (Tata, Air India, Star Alliance)
-  const logoRow = [];
-  // Tata logo
-  const tataLogo = element.querySelector('#tatasection .CustomImage');
-  if (tataLogo) logoRow.push(tataLogo);
-  // Air India logo (first .CustomImage under #footer_right)
-  const aiLogo = element.querySelector('#footer_right .CustomImage');
-  if (aiLogo) logoRow.push(aiLogo);
-  // Star Alliance logo (last .CustomImage under #footer_right)
-  const starAllianceLogo = element.querySelector('#footer_right .CustomImage:last-of-type');
-  if (starAllianceLogo) logoRow.push(starAllianceLogo);
+  // Helper to get CustomImage blocks
+  function getCustomImages(container) {
+    if (!container) return [];
+    return Array.from(container.querySelectorAll('.CustomImage'));
+  }
+
+  // Helper to get text blocks
+  function getTextBlocks(container) {
+    if (!container) return [];
+    return Array.from(container.querySelectorAll('.cmp-text'));
+  }
+
+  // Build header
+  const cells = [['Columns (columns3)']];
+
+  // Get all .container.responsivegrid.container-bs (content rows)
+  const gridWrappers = Array.from(element.querySelectorAll('.container.responsivegrid.container-bs'));
+
+  // First group: main navigation columns (About Us, Book & Manage, Where We Fly, Prepare to Travel)
+  if (gridWrappers[0]) {
+    const grid = gridWrappers[0].querySelector('.aem-Grid');
+    if (grid) {
+      const cols = getGridColumns(grid);
+      if (cols.length) cells.push(cols);
+    }
+  }
+
+  // Second group: Experience, Loyalty, Support, App
+  if (gridWrappers[1]) {
+    const grid = gridWrappers[1].querySelector('.aem-Grid');
+    if (grid) {
+      const cols = getGridColumns(grid);
+      if (cols.length) cells.push(cols);
+    }
+  }
+
+  // Third group: Legal, Social
+  if (gridWrappers[2]) {
+    const grid = gridWrappers[2].querySelector('.aem-Grid');
+    if (grid) {
+      const cols = getGridColumns(grid);
+      if (cols.length) cells.push(cols);
+    }
+  }
+
+  // Tata logo row
+  const tataSection = element.querySelector('#tatasection');
+  const tataLogos = getCustomImages(tataSection);
+  if (tataLogos.length) {
+    cells.push(tataLogos);
+  }
+
+  // Air India & Star Alliance logo row
+  const copyrightGrid = element.querySelector('#copyright .aem-Grid');
+  const footerRight = copyrightGrid ? copyrightGrid.querySelector('#footer_right') : null;
+  const logoRow = getCustomImages(footerRight);
   if (logoRow.length) {
     cells.push(logoRow);
   }
 
-  // Copyright row: reference element directly, preserve all formatting
-  const copyrightText = element.querySelector('#copyrightTxt');
-  if (copyrightText) {
-    cells.push([copyrightText]);
+  // Copyright text row
+  const copytextWrap = element.querySelector('#copytext');
+  let copyrightTexts = [];
+  if (copytextWrap) {
+    copyrightTexts = getTextBlocks(copytextWrap);
+  }
+  if (copyrightTexts.length) {
+    cells.push(copyrightTexts);
   }
 
-  // Create block table and replace original element
+  // Replace the element
   const block = WebImporter.DOMUtils.createTable(cells, document);
   element.replaceWith(block);
 }

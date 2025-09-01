@@ -1,44 +1,53 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  // Header row as specified
+  // Header row: Block name matches example
   const headerRow = ['Hero (hero8)'];
 
-  // Background image: prefer desktop, fallback to mobile
-  let bgImg = element.querySelector('img.card-img-top.main-img');
-  if (!bgImg) bgImg = element.querySelector('img.main-img-mobile');
-  const bgImgRow = [bgImg ? bgImg : ''];
-
-  // Content row: capture all text and CTA link
-  // Find the best text container (overlay area)
-  let overlay = element.querySelector('.card-img-overlay .text-left') ||
-                element.querySelector('.card-img-overlay') ||
-                element.querySelector('.container-bs');
-
-  let contentElems = [];
-  if (overlay) {
-    // Collect all block-level elements in overlay except images
-    const blocks = Array.from(overlay.childNodes).filter((node) => {
-      // Only element nodes (not text nodes)
-      if (node.nodeType !== 1) return false;
-      // Exclude images
-      if (node.tagName.toLowerCase() === 'img') return false;
-      // Exclude empty paragraphs
-      if (node.tagName.toLowerCase() === 'p' && !node.textContent.trim()) return false;
-      return true;
-    });
-    // Pull in all blocks, including spans, paragraphs, headings, links, etc.
-    contentElems = blocks.length ? blocks : [''];
+  // 2nd row: Background image (desktop preferred, fallback to mobile)
+  let bgImg = null;
+  const imgDesktop = element.querySelector('img.card-img-top.main-img.child');
+  if (imgDesktop) {
+    bgImg = imgDesktop;
   } else {
-    contentElems = [''];
+    const imgMobile = element.querySelector('img.main-img-mobile');
+    if (imgMobile) {
+      bgImg = imgMobile;
+    }
   }
 
-  const contentRow = [contentElems];
+  // 3rd row: Title, Description (even if empty), CTA
+  const overlay = element.querySelector('.card-img-overlay');
+  const contentElems = [];
+  if (overlay) {
+    // Heading (span; upgrade to h1)
+    const heading = overlay.querySelector('span.banner-left-heading');
+    if (heading) {
+      const h1 = document.createElement('h1');
+      h1.textContent = heading.textContent;
+      contentElems.push(h1);
+    }
+    // Description (paragraph; include even if empty)
+    const description = overlay.querySelector('p.banner-left-description');
+    if (description) {
+      contentElems.push(description);
+    }
+    // CTA link (a)
+    const cta = overlay.querySelector('a');
+    if (cta) {
+      contentElems.push(cta);
+    }
+  }
 
-  const table = WebImporter.DOMUtils.createTable([
+  // Compose table rows
+  const rowImage = [bgImg ? bgImg : ''];
+  const rowContent = [contentElems.length ? contentElems : ''];
+
+  const cells = [
     headerRow,
-    bgImgRow,
-    contentRow
-  ], document);
+    rowImage,
+    rowContent
+  ];
 
-  element.replaceWith(table);
+  const block = WebImporter.DOMUtils.createTable(cells, document);
+  element.replaceWith(block);
 }

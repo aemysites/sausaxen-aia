@@ -1,41 +1,38 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  // Block header: Must be exactly 'Hero (hero9)'
+  // Table header exactly as in example
   const headerRow = ['Hero (hero9)'];
 
-  // --- BACKGROUND IMAGE (Row 2) ---
-  // Get first relevant image. If none, provide null cell.
+  // Find the background image: Use the first <img> in the banner section
   let bgImg = null;
-  const imgs = element.querySelectorAll('img');
-  if (imgs.length > 0) {
-    // Use first image only (desktop preferred, seems to come first)
-    bgImg = imgs[0];
-  }
-
-  // --- TEXT CONTENT (Row 3) ---
-  // Find the main text content container, or fallback gracefully
-  let textContent = null;
-  const contentBlock = element.querySelector('.content .container-bs, .content .container-bs.internal_promo_image');
-  if (contentBlock) {
-    // Use the entire content block, so structure is preserved (headings, paragraphs, etc.)
-    textContent = contentBlock;
-  } else {
-    // fallback: gather all text elements under .content if .container-bs not present
-    const genericContent = element.querySelector('.content');
-    if (genericContent) {
-      textContent = genericContent;
+  const bannerDiv = element.querySelector('.banner');
+  if (bannerDiv) {
+    const imgs = bannerDiv.querySelectorAll('img');
+    if (imgs.length > 0) {
+      bgImg = imgs[0]; // reference the existing <img> element
     }
   }
-  // If still not found, leave cell blank (null)
 
-  // Compose the table
-  const cells = [
+  // Find the content: The .content .container-bs internal_promo_image div (contains h1, etc)
+  let contentDiv = null;
+  const contentContainer = element.querySelector('.content .container-bs.internal_promo_image');
+  if (contentContainer) {
+    contentDiv = contentContainer;
+  } else {
+    // Fallback: search for h1 and use its parent
+    const h1 = element.querySelector('h1');
+    if (h1) {
+      contentDiv = h1.parentElement;
+    }
+  }
+
+  // If either bgImg or contentDiv is missing, put null so the table row still exists
+  const rows = [
     headerRow,
-    [bgImg],
-    [textContent]
+    [bgImg || ''],
+    [contentDiv || '']
   ];
 
-  // Create and inject the block table
-  const block = WebImporter.DOMUtils.createTable(cells, document);
-  element.replaceWith(block);
+  const table = WebImporter.DOMUtils.createTable(rows, document);
+  element.replaceWith(table);
 }

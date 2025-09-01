@@ -1,37 +1,42 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  // Critical review adherence:
-  // - Only one table needed (Columns block)
-  // - Header must be 'Columns (columns1)'
-  // - No Section Metadata table in example
-  // - No hardcoded content; use direct references
-  // - Only structure as in screenshot and markdown: a single row of two columns
+  // Helper to get direct child by class
+  function getChild(cls) {
+    return Array.from(element.children).find(e => e.classList.contains(cls));
+  }
 
-  // Find the two main content blocks: the search UI, and the search button area
-  // The button area is always .ai-search-button
-  // The rest of the search options are in the sibling(s) before .ai-search-button
+  // Get main wrappers
+  const originDest = getChild('ai-origin-dest-search');
+  const trip = getChild('ai-search-trip');
+  const button = getChild('ai-search-button');
 
-  // Get the search button area (right column)
-  const searchButton = element.querySelector('.ai-search-button');
+  // Defensive: null fallback
+  const leftCol1 = originDest || '';
+  // For rightCol1: we want just the trip type selection (radio and link)
+  let rightCol1 = '';
+  if (trip) {
+    const tripType = trip.querySelector('.ai-search-trip-type');
+    rightCol1 = tripType ? tripType : '';
+  }
 
-  // The left content is everything except the search button area
-  // We'll create a wrapper div, and move all other children into it
-  const leftWrapper = document.createElement('div');
-  Array.from(element.children).forEach(child => {
-    if (child !== searchButton) {
-      leftWrapper.appendChild(child);
-    }
-  });
+  // Second row: left = rest of trip (dates, pax, class, pay), right = button
+  let leftCol2 = '';
+  if (trip) {
+    // Clone trip to avoid mutating DOM
+    const tripClone = trip.cloneNode(true);
+    // Remove trip type selection from the clone
+    const toRemove = tripClone.querySelector('.ai-search-trip-type');
+    if (toRemove) toRemove.remove();
+    leftCol2 = tripClone;
+  }
+  const rightCol2 = button || '';
 
-  // Edge case: if all content is missing, gracefully degrade
-  const leftCell = leftWrapper.childNodes.length ? leftWrapper : document.createTextNode('');
-  const rightCell = searchButton ? searchButton : document.createTextNode('');
+  // Build cells: header, row1, row2
+  const headerRow = ['Columns (columns1)'];
+  const row1 = [leftCol1, rightCol1];
+  const row2 = [leftCol2, rightCol2];
 
-  const cells = [
-    ['Columns (columns1)'],
-    [leftCell, rightCell],
-  ];
-
+  const cells = [headerRow, row1, row2];
   const table = WebImporter.DOMUtils.createTable(cells, document);
   element.replaceWith(table);
 }
