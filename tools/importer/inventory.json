@@ -226,21 +226,6 @@
       ]
     },
     {
-      "name": "header",
-      "cluster": 7,
-      "source": "Header",
-      "target": "Header (header7)",
-      "key": "header7",
-      "instances": [
-        {
-          "url": "https://www.airindia.com/in/en/book/exclusive-deals/amex-offer.html",
-          "urlHash": "f8c8c1edde19fc0de1e28ad95dfc324d821bc1c0",
-          "uuid": "f8c8c1ed-00-f48cbdc51ea1a81dc0fca3d983ffdbca4687885e",
-          "xpath": "/html[1]/body[1]/div[1]/div[1]/div[1]/main[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[2]/div[1]/div[1]/div[1]"
-        }
-      ]
-    },
-    {
       "name": "Hero",
       "cluster": 8,
       "source": "Hero",
@@ -266,6 +251,18 @@
           "uuid": "8dc957bc-00-884783de166f089589a5d5fb68ca426a261bebeb",
           "xpath": "/html[1]/body[1]/div[1]/div[1]/div[1]/main[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]",
           "section": "section-3"
+        }
+      ]
+    },
+    {
+      "name": "Hero",
+      "cluster": 10,
+      "instances": [
+        {
+          "url": "https://www.airindia.com/in/en/book/exclusive-deals/amex-offer.html",
+          "urlHash": "f8c8c1edde19fc0de1e28ad95dfc324d821bc1c0",
+          "uuid": "f8c8c1ed-00-f48cbdc51ea1a81dc0fca3d983ffdbca4687885e",
+          "xpath": "/html[1]/body[1]/div[1]/div[1]/div[1]/main[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[2]/div[1]/div[1]/div[1]"
         }
       ]
     }
