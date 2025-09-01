@@ -1,52 +1,47 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  // Find the card grid container
-  const cardsContainer = element.querySelector('.row.row-cols-1.row-cols-md-3.row-cols-lg-4.g-4');
-  if (!cardsContainer) return;
-  const cardCols = Array.from(cardsContainer.children).filter(col => col.classList.contains('col'));
-
-  // Header row as a single cell (not two columns), per requirements
+  // Header row: block name as in the example
   const rows = [['Cards (cards5)']];
 
-  cardCols.forEach(col => {
-    // Get anchor link for the card
-    const cardLink = col.querySelector('.partner_card a.card-icon');
-    if (!cardLink) return;
+  // Locate all card grid columns
+  const cardsContainer = element.querySelector('.row.row-cols-1.row-cols-md-3.row-cols-lg-4.g-4');
+  if (cardsContainer) {
+    Array.from(cardsContainer.children).forEach(col => {
+      const card = col.querySelector('.partner_card');
+      if (!card) return;
+      // First cell: image
+      const img = card.querySelector('.img-area img');
+      const imgEl = img || '';
 
-    // First cell: the image element referenced directly from the DOM
-    const imgEl = cardLink.querySelector('.img-area img');
-
-    // Second cell: all text content (title, etc)
-    const body = cardLink.querySelector('.partner_card_body');
-    let cellElements = [];
-    if (body) {
-      // Title - use <strong>
-      const titleEl = body.querySelector('.partner_title');
-      if (titleEl) {
-        const strong = document.createElement('strong');
-        strong.textContent = titleEl.textContent.trim();
-        cellElements.push(strong);
-      }
-      // If there are more nodes, include them after the title
-      Array.from(body.childNodes).forEach(node => {
-        if (node !== titleEl && node.nodeType === Node.TEXT_NODE) {
-          const span = document.createElement('span');
-          span.textContent = node.textContent.trim();
-          if (span.textContent) cellElements.push(span);
-        } else if (node !== titleEl && node.nodeType === Node.ELEMENT_NODE) {
-          cellElements.push(node);
+      // Second cell: structured text content
+      const cardBody = card.querySelector('.partner_card_body');
+      const textFragments = [];
+      if (cardBody) {
+        // Title in strong
+        const titleDiv = cardBody.querySelector('.partner_title');
+        if (titleDiv && titleDiv.textContent.trim()) {
+          const strong = document.createElement('strong');
+          strong.textContent = titleDiv.textContent.trim();
+          textFragments.push(strong);
         }
-      });
-    }
-    if (cellElements.length === 0 && cardLink.textContent.trim()) {
-      const strong = document.createElement('strong');
-      strong.textContent = cardLink.textContent.trim();
-      cellElements.push(strong);
-    }
-
-    // Push row as two columns: [img, textContent]
-    rows.push([imgEl, cellElements.length === 1 ? cellElements[0] : cellElements]);
-  });
+        // Add any additional non-title text (if present)
+        // (In the current HTML, only the title exists, but this keeps things robust)
+        Array.from(cardBody.childNodes).forEach(node => {
+          if (
+            node !== titleDiv &&
+            node.nodeType === Node.TEXT_NODE &&
+            node.textContent.trim()
+          ) {
+            const p = document.createElement('p');
+            p.textContent = node.textContent.trim();
+            textFragments.push(p);
+          }
+        });
+      }
+      // Ensure the cell is never empty (blank string if needed)
+      rows.push([imgEl, textFragments.length ? textFragments : '']);
+    });
+  }
 
   const table = WebImporter.DOMUtils.createTable(rows, document);
   element.replaceWith(table);
