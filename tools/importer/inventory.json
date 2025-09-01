@@ -181,9 +181,9 @@
     {
       "name": "Hero",
       "cluster": 4,
-      "source": "Header",
-      "target": "Header (header4)",
-      "key": "header4",
+      "source": "Hero",
+      "target": "Hero (hero4)",
+      "key": "hero4",
       "instances": [
         {
           "url": "https://www.airindia.com/in/en/book/seamless-global-connectivity.html",
@@ -244,6 +244,9 @@
     {
       "name": "Hero",
       "cluster": 9,
+      "source": "Hero",
+      "target": "Hero (hero9)",
+      "key": "hero9",
       "instances": [
         {
           "url": "https://www.airindia.com/in/en/tata-neu-hdfc-credit-card-offers.html",
@@ -257,6 +260,9 @@
     {
       "name": "Hero",
       "cluster": 10,
+      "source": "Hero",
+      "target": "Hero (hero10)",
+      "key": "hero10",
       "instances": [
         {
           "url": "https://www.airindia.com/in/en/book/exclusive-deals/amex-offer.html",
