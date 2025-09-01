@@ -1,0 +1,32 @@
+{
+  "templates": [
+    {
+      "name": "Dashboard Template",
+      "cluster": 1,
+      "pages": [
+        {
+          "url": "https://www.airindia.com/in/en/tata-neu-hdfc-credit-card-offers.html",
+          "uuid": "8dc957bcc241bb6b3966b0be3dd2c1d3c2ee1b0a"
+        },
+        {
+          "url": "https://www.airindia.com/in/en/book/seamless-global-connectivity.html",
+          "uuid": "79bc07112e1f675cdc2668ab6ff6e34d5db51dee"
+        }
+      ]
+    },
+    {
+      "name": "'Event Listing Page'",
+      "cluster": 2,
+      "pages": [
+        {
+          "url": "https://www.airindia.com/in/en/book/exclusive-deals/sbi-card-offer.html",
+          "uuid": "da2556b4ba89a92affccaa586830135df54aaf91"
+        },
+        {
+          "url": "https://www.airindia.com/in/en/book/exclusive-deals/amex-offer.html",
+          "uuid": "f8c8c1edde19fc0de1e28ad95dfc324d821bc1c0"
+        }
+      ]
+    }
+  ]
+}
