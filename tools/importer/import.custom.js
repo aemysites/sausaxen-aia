@@ -43,7 +43,9 @@ export const customTransformers = {
       document.querySelector("#header")?.remove();
       document.querySelector("app-ai-agent-root")?.remove();
       document.querySelector(".feedback.aem-GridColumn")?.remove();
-      document.querySelector(".breadcrumb.aem-GridColumn")?.remove(); 
+      document.querySelector(".breadcrumb.aem-GridColumn")?.remove();
+      document.querySelector("#footerAccordion")?.remove();
+      
     } catch (e) {
       // noop
     }
