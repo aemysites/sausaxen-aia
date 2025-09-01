@@ -1,41 +1,44 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  // Get main/desktop image
-  let mainImg = element.querySelector('img.card-img-top.main-img.child');
-  if (!mainImg) {
-    const imgs = element.querySelectorAll('img');
-    mainImg = imgs.length > 0 ? imgs[0] : null;
-  }
+  // Header row as specified
+  const headerRow = ['Hero (hero8)'];
 
-  // Get overlay content block
-  let overlayContent = null;
-  const overlay = element.querySelector('.card-img-overlay');
+  // Background image: prefer desktop, fallback to mobile
+  let bgImg = element.querySelector('img.card-img-top.main-img');
+  if (!bgImg) bgImg = element.querySelector('img.main-img-mobile');
+  const bgImgRow = [bgImg ? bgImg : ''];
+
+  // Content row: capture all text and CTA link
+  // Find the best text container (overlay area)
+  let overlay = element.querySelector('.card-img-overlay .text-left') ||
+                element.querySelector('.card-img-overlay') ||
+                element.querySelector('.container-bs');
+
+  let contentElems = [];
   if (overlay) {
-    // Use the .text-left block if present, else overlay itself
-    const textLeft = overlay.querySelector('.text-left');
-    overlayContent = textLeft ? textLeft : overlay;
-  }
-
-  // Compose content for text/CTA cell
-  let contentCell = '';
-  if (overlayContent) {
-    // Collect all direct children of overlayContent
-    // This ensures any headings, paragraphs, buttons, etc, are included
-    const children = Array.from(overlayContent.children).filter(child => {
-      // Only keep elements that are not empty (unless they're links, which should be included always)
-      if (child.tagName === 'A') return true;
-      if (child.textContent && child.textContent.trim().length > 0) return true;
-      return false;
+    // Collect all block-level elements in overlay except images
+    const blocks = Array.from(overlay.childNodes).filter((node) => {
+      // Only element nodes (not text nodes)
+      if (node.nodeType !== 1) return false;
+      // Exclude images
+      if (node.tagName.toLowerCase() === 'img') return false;
+      // Exclude empty paragraphs
+      if (node.tagName.toLowerCase() === 'p' && !node.textContent.trim()) return false;
+      return true;
     });
-    contentCell = children.length ? children : '';
+    // Pull in all blocks, including spans, paragraphs, headings, links, etc.
+    contentElems = blocks.length ? blocks : [''];
+  } else {
+    contentElems = [''];
   }
 
-  const cells = [
-    ['Hero (hero8)'],
-    [mainImg ? mainImg : ''],
-    [contentCell]
-  ];
+  const contentRow = [contentElems];
 
-  const block = WebImporter.DOMUtils.createTable(cells, document);
-  element.replaceWith(block);
+  const table = WebImporter.DOMUtils.createTable([
+    headerRow,
+    bgImgRow,
+    contentRow
+  ], document);
+
+  element.replaceWith(table);
 }

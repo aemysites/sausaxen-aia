@@ -1,35 +1,37 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  // 1. Header row as per example
-  const headerRow = ['Columns (columns1)'];
+  // Critical review adherence:
+  // - Only one table needed (Columns block)
+  // - Header must be 'Columns (columns1)'
+  // - No Section Metadata table in example
+  // - No hardcoded content; use direct references
+  // - Only structure as in screenshot and markdown: a single row of two columns
 
-  // 2. Get the key content areas, mapping to two logical rows of columns
-  // First logical row: main search form (left), promo/search button (right)
-  // Second logical row: nothing else present in this HTML, so we leave these cells empty
+  // Find the two main content blocks: the search UI, and the search button area
+  // The button area is always .ai-search-button
+  // The rest of the search options are in the sibling(s) before .ai-search-button
 
-  // Get children
-  const mainChildren = Array.from(element.children);
-  // Right column: .ai-search-button
-  const rightCol1 = element.querySelector('.ai-search-button');
-  // Left column: everything else
-  const leftCol1 = document.createElement('div');
-  mainChildren.forEach(child => {
-    if (!child.classList.contains('ai-search-button')) {
-      leftCol1.appendChild(child);
+  // Get the search button area (right column)
+  const searchButton = element.querySelector('.ai-search-button');
+
+  // The left content is everything except the search button area
+  // We'll create a wrapper div, and move all other children into it
+  const leftWrapper = document.createElement('div');
+  Array.from(element.children).forEach(child => {
+    if (child !== searchButton) {
+      leftWrapper.appendChild(child);
     }
   });
-  // Second row: both columns empty (no images or preview content in this HTML)
-  const leftCol2 = '';
-  const rightCol2 = '';
 
-  // 3. Assemble cells
+  // Edge case: if all content is missing, gracefully degrade
+  const leftCell = leftWrapper.childNodes.length ? leftWrapper : document.createTextNode('');
+  const rightCell = searchButton ? searchButton : document.createTextNode('');
+
   const cells = [
-    headerRow,
-    [leftCol1, rightCol1],
-    [leftCol2, rightCol2]
+    ['Columns (columns1)'],
+    [leftCell, rightCell],
   ];
 
-  // 4. Replace original with the structured table
   const table = WebImporter.DOMUtils.createTable(cells, document);
   element.replaceWith(table);
 }
