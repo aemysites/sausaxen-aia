@@ -1,55 +1,36 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  // 1. Create exact header as the example, single column
+  // Header row as in the example
   const headerRow = ['Cards (cards6)'];
-
-  // 2. Find the container holding the card columns
-  const cardsContainer = element.querySelector('.row.row-cols-1.row-cols-md-3.row-cols-lg-4.g-4');
+  // Find the cards container
+  const cardsContainer = element.querySelector('.row.row-cols-1.row-cols-md-3.row-cols-lg-4');
   if (!cardsContainer) return;
-  const cardCols = Array.from(cardsContainer.children);
-
-  // 3. For each card, extract image and visible text content
-  const rows = cardCols.map(col => {
-    // Find the anchor element containing image and title
-    const cardLink = col.querySelector('a.card-icon') || col.querySelector('a');
-    if (!cardLink) return null;
-
-    // Image extraction: always present, keep the original element
-    const img = cardLink.querySelector('img');
-
-    // Text extraction: find all partner_card_body and use any text inside (title, description)
-    const cardBody = cardLink.querySelector('.partner_card_body') || col.querySelector('.partner_card_body');
-    let textCellContents = [];
+  // Get all card columns
+  const cardCols = Array.from(cardsContainer.children).filter(col => col.classList.contains('col'));
+  const rows = [headerRow];
+  cardCols.forEach(col => {
+    const partnerCard = col.querySelector('.partner_card');
+    if (!partnerCard) return;
+    // Image extraction
+    let imgEl = null;
+    const imgArea = partnerCard.querySelector('.img-area');
+    if (imgArea) {
+      imgEl = imgArea.querySelector('img');
+    }
+    // Text content extraction: include all content from .partner_card_body
+    let textCell = '';
+    const cardBody = partnerCard.querySelector('.partner_card_body');
     if (cardBody) {
-      // Extract the title
-      const titleDiv = cardBody.querySelector('.partner_title');
-      if (titleDiv && titleDiv.textContent.trim()) {
-        const strong = document.createElement('strong');
-        strong.textContent = titleDiv.textContent.trim();
-        textCellContents.push(strong);
-      }
-      // Extract any additional non-empty text nodes directly under cardBody (as description)
-      Array.from(cardBody.childNodes).forEach(node => {
-        if (node.nodeType === 3 && node.textContent.trim()) {
-          // Text node
-          const span = document.createElement('span');
-          span.textContent = node.textContent.trim();
-          textCellContents.push(document.createElement('br'), span);
-        }
-      });
+      // Use the actual cardBody element to preserve all structure and text (title, description, CTA, etc.)
+      textCell = cardBody;
     }
-    // Fallback: if no cardBody, look for visible text in col
-    if (textCellContents.length === 0) {
-      const text = cardLink.textContent.trim();
-      if (text) textCellContents = [text];
+    // Only add row if image or text is present
+    if (imgEl || (textCell && textCell.textContent.trim().length > 0)) {
+      rows.push([imgEl, textCell]);
     }
-    // Compose the card row: [image, text cell]
-    return [img, textCellContents];
-  }).filter(row => row && row[0]); // Only keep valid rows (with image)
-
-  // 4. Build the final table for the block
-  const cells = [headerRow, ...rows];
-  const block = WebImporter.DOMUtils.createTable(cells, document);
-  // 5. Replace the original element
-  element.replaceWith(block);
+  });
+  if (rows.length > 1) {
+    const table = WebImporter.DOMUtils.createTable(rows, document);
+    element.replaceWith(table);
+  }
 }

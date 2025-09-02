@@ -1,51 +1,47 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  // Find the block root
-  const bannerBlock = element.querySelector('.partnerBannerWithText');
-  if (!bannerBlock) return;
-
-  // Find .banner inside block
-  const banner = bannerBlock.querySelector('.banner');
+  // Find the main partnerBannerWithText block
+  const partnerBanner = element.querySelector('.partnerBannerWithText');
+  if (!partnerBanner) return;
+  const banner = partnerBanner.querySelector('.banner');
   if (!banner) return;
 
-  // Find background image (prefer desktop)
-  const imgs = banner.querySelectorAll('img');
-  const bgImg = imgs.length > 0 ? imgs[0] : null;
+  // Get the FIRST image in the banner for the background image
+  const bgImg = banner.querySelector('img');
 
-  // Find the text content block
-  const content = banner.querySelector('.content.partner-banner');
-  let textContentEls = [];
-  if (content) {
-    // Find all variations: .partner-banner-web-text, .partner-banner-tablet-text, .partner-banner-mobile-text
-    const allTextBlocks = content.querySelectorAll('.partner-banner-web-text, .partner-banner-tablet-text, .partner-banner-mobile-text');
-    allTextBlocks.forEach(block => {
-      // Collect only element children (not comments or empty text nodes)
-      Array.from(block.childNodes).forEach(node => {
-        if (node.nodeType === 1 && node.textContent.trim()) {
-          textContentEls.push(node);
-        }
-      });
-    });
-    // If nothing found, fallback to all element children of content
-    if (textContentEls.length === 0) {
-      Array.from(content.children).forEach(node => {
-        if (node.textContent.trim()) {
-          textContentEls.push(node);
-        }
-      });
+  // Try to get all major text containers: web, tablet, mobile
+  // The example expects all headline/subheading/para content in one cell
+  // We'll combine all text blocks if present
+  const textBlocks = [];
+  const webText = banner.querySelector('.partner-banner-web-text');
+  if (webText) textBlocks.push(webText);
+  const tabletText = banner.querySelector('.partner-banner-tablet-text');
+  if (tabletText) textBlocks.push(tabletText);
+  const mobileText = banner.querySelector('.partner-banner-mobile-text');
+  if (mobileText) textBlocks.push(mobileText);
+
+  // If none of the above exist, fallback to all direct children in .content .container-bs
+  if (textBlocks.length === 0) {
+    const fallbackBlocks = banner.querySelectorAll('.content .container-bs > *');
+    if (fallbackBlocks.length) {
+      textBlocks.push(...fallbackBlocks);
+    } else {
+      // Final fallback: all children in .content
+      const content = banner.querySelector('.content');
+      if (content) {
+        textBlocks.push(...content.children);
+      }
     }
   }
 
-  // Build table rows
-  const rows = [];
-  // 1. Header row, must match example exactly
-  rows.push(['Hero (hero4)']);
-  // 2. Image row (background image)
-  rows.push([bgImg ? bgImg : '']);
-  // 3. Text row (all text elements grouped)
-  rows.push([textContentEls.length > 0 ? textContentEls : '']);
+  // Build the table rows according to example: header, image, text
+  const rows = [
+    ['Hero (hero4)'], // Header row EXACTLY as in example
+    [bgImg || ''],   // Background image row (image element or empty string)
+    [textBlocks.length ? textBlocks : ''] // All text blocks in one cell
+  ];
 
-  // Create table and replace
-  const blockTable = WebImporter.DOMUtils.createTable(rows, document);
-  element.replaceWith(blockTable);
+  // Create and replace with the new table
+  const table = WebImporter.DOMUtils.createTable(rows, document);
+  element.replaceWith(table);
 }
