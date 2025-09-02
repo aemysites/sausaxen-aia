@@ -1,44 +1,65 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  // Header row as specified
+  // 1. Header row: block name as specified in the example
   const headerRow = ['Hero (hero8)'];
 
-  // Background image: prefer desktop, fallback to mobile
-  let bgImg = element.querySelector('img.card-img-top.main-img');
-  if (!bgImg) bgImg = element.querySelector('img.main-img-mobile');
-  const bgImgRow = [bgImg ? bgImg : ''];
+  // 2. Image row: get main desktop image (prefer card-img-top), fallback to mobile image
+  let bgImg = element.querySelector('img.card-img-top.main-img.child') || element.querySelector('img.main-img-mobile');
+  const imageRow = [bgImg || '']; // always a single cell
 
-  // Content row: capture all text and CTA link
-  // Find the best text container (overlay area)
-  let overlay = element.querySelector('.card-img-overlay .text-left') ||
-                element.querySelector('.card-img-overlay') ||
-                element.querySelector('.container-bs');
+  // 3. Content row: all text and CTA, in source order and preserving semantic meaning
+  const overlay = element.querySelector('.card-img-overlay');
+  let contentItems = [];
 
-  let contentElems = [];
   if (overlay) {
-    // Collect all block-level elements in overlay except images
-    const blocks = Array.from(overlay.childNodes).filter((node) => {
-      // Only element nodes (not text nodes)
-      if (node.nodeType !== 1) return false;
-      // Exclude images
-      if (node.tagName.toLowerCase() === 'img') return false;
-      // Exclude empty paragraphs
-      if (node.tagName.toLowerCase() === 'p' && !node.textContent.trim()) return false;
-      return true;
-    });
-    // Pull in all blocks, including spans, paragraphs, headings, links, etc.
-    contentElems = blocks.length ? blocks : [''];
-  } else {
-    contentElems = [''];
+    // Find text container (if any)
+    const textContainer = overlay.querySelector('.text-left') || overlay;
+    // Collect:
+    // - Any banner heading (span/banner-left-heading)
+    const heading = textContainer.querySelector('.banner-left-heading');
+    if (heading && heading.textContent.trim()) {
+      const h1 = document.createElement('h1');
+      h1.textContent = heading.textContent.trim();
+      contentItems.push(h1);
+    }
+    // - Any description (p.banner-left-description)
+    const desc = textContainer.querySelector('p.banner-left-description');
+    if (desc) {
+      // Keep the original paragraph element to preserve potential formatting
+      contentItems.push(desc);
+    }
+    // - Any CTA/link (a.learn-more-button, a#cardBannerLink)
+    const cta = textContainer.querySelector('a.learn-more-button, a#cardBannerLink');
+    if (cta) {
+      // Remove screen-reader-only span for clean output
+      const sr = cta.querySelector('.cmp-link__screen-reader-only');
+      if (sr) sr.remove();
+      contentItems.push(cta);
+    }
   }
 
-  const contentRow = [contentElems];
+  // If nothing found in overlay, fallback: collect all visible headings, paragraphs and links in element
+  if (contentItems.length === 0) {
+    // Use all headings, paragraphs, spans, and links at any level
+    const fallbackNodes = element.querySelectorAll('h1, h2, h3, h4, h5, h6, span, p, a');
+    fallbackNodes.forEach(node => {
+      if (node.tagName === 'A') {
+        const sr = node.querySelector('.cmp-link__screen-reader-only');
+        if (sr) sr.remove();
+      }
+      if ((node.textContent && node.textContent.trim()) || node.tagName === 'A') {
+        contentItems.push(node);
+      }
+    });
+  }
 
-  const table = WebImporter.DOMUtils.createTable([
-    headerRow,
-    bgImgRow,
-    contentRow
-  ], document);
+  // Always supply at least an empty string if no content found (avoid empty cell)
+  const contentRow = [contentItems.length > 0 ? contentItems : ['']];
 
-  element.replaceWith(table);
+  // Assemble the block table
+  const cells = [headerRow, imageRow, contentRow];
+  const block = WebImporter.DOMUtils.createTable(cells, document);
+
+  // Replace the original element with the new table block
+  element.replaceWith(block);
 }

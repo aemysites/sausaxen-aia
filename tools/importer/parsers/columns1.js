@@ -1,37 +1,30 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  // Critical review adherence:
-  // - Only one table needed (Columns block)
-  // - Header must be 'Columns (columns1)'
-  // - No Section Metadata table in example
-  // - No hardcoded content; use direct references
-  // - Only structure as in screenshot and markdown: a single row of two columns
+  // Header row exactly as in the markdown example
+  const headerRow = ['Columns (columns1)'];
 
-  // Find the two main content blocks: the search UI, and the search button area
-  // The button area is always .ai-search-button
-  // The rest of the search options are in the sibling(s) before .ai-search-button
+  // Get all top-level direct child divs (logical column content)
+  const groups = Array.from(element.querySelectorAll(':scope > div'));
+  // Defensive: ensure at least 2 groups for layout
+  while (groups.length < 2) {
+    groups.push(document.createElement('div'));
+  }
 
-  // Get the search button area (right column)
-  const searchButton = element.querySelector('.ai-search-button');
+  // To match 2x2 grid beneath header
+  // Use first two for top row, then duplicate them for bottom row (since only 2 logical groups)
+  const leftTop = groups[0];
+  const rightTop = groups[1];
+  const leftBottom = groups[0].cloneNode(true);
+  const rightBottom = groups[1].cloneNode(true);
 
-  // The left content is everything except the search button area
-  // We'll create a wrapper div, and move all other children into it
-  const leftWrapper = document.createElement('div');
-  Array.from(element.children).forEach(child => {
-    if (child !== searchButton) {
-      leftWrapper.appendChild(child);
-    }
-  });
-
-  // Edge case: if all content is missing, gracefully degrade
-  const leftCell = leftWrapper.childNodes.length ? leftWrapper : document.createTextNode('');
-  const rightCell = searchButton ? searchButton : document.createTextNode('');
-
+  // Table rows: header, then two rows of two columns each
   const cells = [
-    ['Columns (columns1)'],
-    [leftCell, rightCell],
+    headerRow,
+    [leftTop, rightTop],
+    [leftBottom, rightBottom],
   ];
 
-  const table = WebImporter.DOMUtils.createTable(cells, document);
-  element.replaceWith(table);
+  // Create and replace
+  const block = WebImporter.DOMUtils.createTable(cells, document);
+  element.replaceWith(block);
 }

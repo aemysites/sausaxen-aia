@@ -1,41 +1,47 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  // Block name header
+  // Header row: matches exactly as in the example
   const headerRow = ['Hero (hero10)'];
 
-  // Find all images directly under .banner, prefer first (desktop)
-  let backgroundImgEl = null;
+  // Find the banner image: prefer desktop first, fallback to mobile if needed
+  let heroImg = null;
   const bannerDiv = element.querySelector('.banner');
   if (bannerDiv) {
     const imgs = bannerDiv.querySelectorAll('img');
-    if (imgs.length) {
-      backgroundImgEl = imgs[0];
-    }
+    // Use the first non-empty img (desktop preferred)
+    heroImg = imgs[0] || null;
   }
 
-  // Get text content: .banner .content .container-bs.internal_promo_image
-  let textContentEl = null;
+  // 2nd row: image only (if image exists, otherwise empty string)
+  const imageRow = [heroImg || ''];
+
+  // 3rd row: all promo text (h1, p, etc) from content
+  let contentRowEl = null;
   if (bannerDiv) {
-    const contentDiv = bannerDiv.querySelector('.content');
-    if (contentDiv) {
-      const promo = contentDiv.querySelector('.container-bs.internal_promo_image');
-      if (promo) {
-        textContentEl = promo;
+    // Target the inner promo container if found
+    const promoContainer = bannerDiv.querySelector('.content .container-bs.internal_promo_image');
+    // Use promoContainer if it exists and has children
+    if (promoContainer && promoContainer.children.length > 0) {
+      contentRowEl = promoContainer;
+    } else {
+      // fallback to entire .content block
+      const contentDiv = bannerDiv.querySelector('.content');
+      if (contentDiv && contentDiv.children.length > 0) {
+        contentRowEl = contentDiv;
       }
     }
   }
+  // If nothing found, fallback to empty string
+  const contentRow = [contentRowEl || ''];
 
-  // Fallbacks for missing elements
-  const imgCell = backgroundImgEl ? backgroundImgEl : '';
-  const textCell = textContentEl ? textContentEl : '';
-
-  // Table rows as per specification: header, image, text
+  // Compose the cells for the table
   const cells = [
     headerRow,
-    [imgCell],
-    [textCell]
+    imageRow,
+    contentRow
   ];
 
-  const block = WebImporter.DOMUtils.createTable(cells, document);
-  element.replaceWith(block);
+  // Create table and replace the original element
+  const table = WebImporter.DOMUtils.createTable(cells, document);
+  element.replaceWith(table);
 }
