@@ -8,6 +8,10 @@
   align-items: stretch;
   padding: 0;
   margin: 0;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  gap: 0;
 }
 
 .columns img {
@@ -52,9 +56,9 @@
 .columns {
   background: #fff;
   border: 1px solid #c2c7ce;
-  border-radius: 8px;
+  border-radius: 12px;
   box-sizing: border-box;
-  min-height: 38px;
+  min-height: 56px;
   width: 100%;
   margin: 0;
   padding: 0;
@@ -62,6 +66,8 @@
   flex-direction: row;
   align-items: stretch;
   overflow: hidden;
+  background-image: none;
+  justify-content: center;
 }
 
 .columns > div > div:first-child {
@@ -132,8 +138,6 @@
   }
 }
 
-
-/* Block background and container */
 .columns.columns3 {
   background: #f7eee3;
   background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Crect x='0' y='0' width='40' height='40' fill='%23f7eee3'/%3E%3Cpath d='M20 0L30 17.32L10 17.32Z' fill='none' stroke='%23e7dbbf' stroke-width='0.8'/%3E%3C/svg%3E");
@@ -147,7 +151,6 @@
   width: 100%;
 }
 
-/* Main columns row: flex for simple horizontal layout */
 .columns.columns3 > div {
   display: flex;
   flex-flow: row nowrap;
@@ -160,7 +163,6 @@
   box-sizing: border-box;
 }
 
-/* Individual columns: stack content vertically, left aligned */
 .columns.columns3 > div > div {
   display: flex;
   flex-direction: column;
@@ -171,13 +173,8 @@
   background: none;
   border: none;
   box-sizing: border-box;
-
-  /* Optional: for tighter column content, uncomment below */
-
-  /* max-width: 220px; */
 }
 
-/* Headings in columns */
 .columns.columns3 > div > div > h4,
 .columns.columns3 > div > div > h5 {
   color: #a37958;
@@ -188,7 +185,6 @@
   letter-spacing: 0.01em;
 }
 
-/* Links, lists, paragraphs */
 .columns.columns3 > div > div a,
 .columns.columns3 > div > div li,
 .columns.columns3 > div > div p {
@@ -201,7 +197,6 @@
   text-decoration: none;
 }
 
-/* Remove bullets and spacing for lists */
 .columns.columns3 > div > div ul,
 .columns.columns3 > div > div ol {
   list-style: none;
@@ -209,7 +204,6 @@
   margin: 0;
 }
 
-/* App badges and social icons row */
 .columns.columns3 .app-badges,
 .columns.columns3 .social-icons {
   display: flex;
@@ -219,7 +213,6 @@
   margin-top: 12px;
 }
 
-/* Logos row centered horizontally */
 .columns.columns3 .logos-row {
   display: flex;
   flex-direction: row;
@@ -229,7 +222,6 @@
   margin: 36px 0 0;
 }
 
-/* Copyright/disclaimer styling */
 .columns.columns3 .footer-note,
 .columns.columns3 .copyright {
   text-align: center;
@@ -240,7 +232,6 @@
   max-width: 100%;
 }
 
-/* Section dividers: dotted line (for elements with .columns-divider class) */
 .columns.columns3 .columns-divider {
   border: none;
   border-top: 1px dotted #e2e2e2;
@@ -249,7 +240,6 @@
   width: 100%;
 }
 
-/* Responsive: stack columns vertically on mobile, adjust gaps/padding */
 @media (width <= 900px) {
   .columns.columns3 {
     padding-top: 32px;
@@ -270,8 +260,61 @@
   }
 }
 
-/* Remove any unexpected bottom margins */
 .columns.columns3,
 .columns.columns3 > div {
+  margin-bottom: 0;
+}
+
+/* Provide a taller card to match visual height if content is missing */
+.columns:empty {
+  min-height: 64px;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  border-radius: 12px;
+}
+
+/* If the block has only one direct child, make it fill horizontally and set up flex row */
+
+/* Responsive stacking for narrow screens */
+@media (width <= 900px) {
+  .columns {
+    flex-direction: column;
+    border-radius: 12px;
+    min-height: 0;
+    width: 100%;
+    padding: 0;
+  }
+
+  .columns > div {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .columns > div > div {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    border-radius: 0;
+    border-left: none;
+    border-right: none;
+  }
+}
+
+/* Always keep the card border and background, even if no children/content */
+.columns:empty,
+.columns:only-child {
+  background: #fff;
+  border: 1px solid #c2c7ce;
+  border-radius: 12px;
+  min-height: 56px;
+  box-sizing: border-box;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+/* Remove unwanted vertical spacing if the block is empty or alone */
+.columns:only-child {
+  margin-top: 0;
   margin-bottom: 0;
 }
