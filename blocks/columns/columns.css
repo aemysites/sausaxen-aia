@@ -50,7 +50,6 @@
 
 
 .columns {
-  /* Outer block styling for border, background, and border-radius */
   background: #fff;
   border: 1px solid #c2c7ce;
   border-radius: 8px;
@@ -65,17 +64,11 @@
   overflow: hidden;
 }
 
-/* Direct child should become row container, laid out horizontally */
-
-/* If there are any inner columns, ensure horizontal distribution */
-
-/* For leftmost section, allow a bit more width */
 .columns > div > div:first-child {
   flex: 0 1 180px;
   max-width: 210px;
 }
 
-/* For rightmost section, style as visually distinct "search" area */
 .columns > div > div:last-child {
   flex: 0 1 130px;
   max-width: 180px;
@@ -88,18 +81,15 @@
   justify-content: flex-end;
 }
 
-/* Middle sections fill remaining space */
 .columns > div > div:not(:first-child, :last-child) {
   flex: 1 1 0;
   max-width: 100%;
 }
 
-/* Add vertical divider to all but last column */
 .columns > div > div:not(:last-child) {
   border-right: 1px solid #e2e2e2;
 }
 
-/* Responsive: stack vertically on small screens */
 @media (width <= 900px) {
   .columns {
     flex-direction: column;
@@ -133,7 +123,6 @@
   }
 }
 
-/* Remove any accidental vertical padding on desktop for a clean, flat look */
 @media (width >= 900px) {
   .columns,
   .columns > div,
@@ -141,4 +130,148 @@
     padding-top: 0;
     padding-bottom: 0;
   }
+}
+
+
+/* Block background and container */
+.columns.columns3 {
+  background: #f7eee3;
+  background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Crect x='0' y='0' width='40' height='40' fill='%23f7eee3'/%3E%3Cpath d='M20 0L30 17.32L10 17.32Z' fill='none' stroke='%23e7dbbf' stroke-width='0.8'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  padding-top: 56px;
+  padding-bottom: 0;
+  border: none;
+  border-radius: 0;
+  min-height: 340px;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+/* Main columns row: flex for simple horizontal layout */
+.columns.columns3 > div {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 44px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 48px 48px;
+  box-sizing: border-box;
+}
+
+/* Individual columns: stack content vertically, left aligned */
+.columns.columns3 > div > div {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-width: 0;
+  padding: 0;
+  margin: 0;
+  background: none;
+  border: none;
+  box-sizing: border-box;
+
+  /* Optional: for tighter column content, uncomment below */
+
+  /* max-width: 220px; */
+}
+
+/* Headings in columns */
+.columns.columns3 > div > div > h4,
+.columns.columns3 > div > div > h5 {
+  color: #a37958;
+  font-weight: 700;
+  font-size: 15px;
+  margin: 0 0 16px;
+  line-height: 1.2;
+  letter-spacing: 0.01em;
+}
+
+/* Links, lists, paragraphs */
+.columns.columns3 > div > div a,
+.columns.columns3 > div > div li,
+.columns.columns3 > div > div p {
+  font-size: 13px;
+  color: #333;
+  line-height: 1.7;
+  margin-bottom: 8px;
+  padding: 0;
+  background: none;
+  text-decoration: none;
+}
+
+/* Remove bullets and spacing for lists */
+.columns.columns3 > div > div ul,
+.columns.columns3 > div > div ol {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+}
+
+/* App badges and social icons row */
+.columns.columns3 .app-badges,
+.columns.columns3 .social-icons {
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
+  align-items: center;
+  margin-top: 12px;
+}
+
+/* Logos row centered horizontally */
+.columns.columns3 .logos-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 32px;
+  margin: 36px 0 0;
+}
+
+/* Copyright/disclaimer styling */
+.columns.columns3 .footer-note,
+.columns.columns3 .copyright {
+  text-align: center;
+  font-size: 11px;
+  color: #8c8271;
+  margin: 12px auto 0;
+  line-height: 1.6;
+  max-width: 100%;
+}
+
+/* Section dividers: dotted line (for elements with .columns-divider class) */
+.columns.columns3 .columns-divider {
+  border: none;
+  border-top: 1px dotted #e2e2e2;
+  margin: 32px 0;
+  height: 0;
+  width: 100%;
+}
+
+/* Responsive: stack columns vertically on mobile, adjust gaps/padding */
+@media (width <= 900px) {
+  .columns.columns3 {
+    padding-top: 32px;
+    min-height: 0;
+  }
+
+  .columns.columns3 > div {
+    flex-direction: column;
+    gap: 24px;
+    padding-left: 12px;
+    padding-right: 12px;
+    padding-bottom: 24px;
+  }
+
+  .columns.columns3 .logos-row {
+    margin-top: 24px;
+    gap: 18px;
+  }
+}
+
+/* Remove any unexpected bottom margins */
+.columns.columns3,
+.columns.columns3 > div {
+  margin-bottom: 0;
 }
