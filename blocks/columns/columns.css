@@ -1,6 +1,13 @@
+/* stylelint-disable no-descending-specificity */
 .columns > div {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  flex: 1 1 0;
+  min-width: 0;
+  min-height: 38px;
+  align-items: stretch;
+  padding: 0;
+  margin: 0;
 }
 
 .columns img {
@@ -9,6 +16,15 @@
 
 .columns > div > div {
   order: 1;
+  flex: 1 1 0;
+  min-width: 0;
+  min-height: 38px;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .columns > div > .columns-img-col {
@@ -29,5 +45,100 @@
   .columns > div > div {
     flex: 1;
     order: unset;
+  }
+}
+
+
+.columns {
+  /* Outer block styling for border, background, and border-radius */
+  background: #fff;
+  border: 1px solid #c2c7ce;
+  border-radius: 8px;
+  box-sizing: border-box;
+  min-height: 38px;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  overflow: hidden;
+}
+
+/* Direct child should become row container, laid out horizontally */
+
+/* If there are any inner columns, ensure horizontal distribution */
+
+/* For leftmost section, allow a bit more width */
+.columns > div > div:first-child {
+  flex: 0 1 180px;
+  max-width: 210px;
+}
+
+/* For rightmost section, style as visually distinct "search" area */
+.columns > div > div:last-child {
+  flex: 0 1 130px;
+  max-width: 180px;
+  background: #f0d6db;
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
+  border-left: 1px solid #e2e2e2;
+  display: flex;
+  align-items: stretch;
+  justify-content: flex-end;
+}
+
+/* Middle sections fill remaining space */
+.columns > div > div:not(:first-child, :last-child) {
+  flex: 1 1 0;
+  max-width: 100%;
+}
+
+/* Add vertical divider to all but last column */
+.columns > div > div:not(:last-child) {
+  border-right: 1px solid #e2e2e2;
+}
+
+/* Responsive: stack vertically on small screens */
+@media (width <= 900px) {
+  .columns {
+    flex-direction: column;
+    border-radius: 8px;
+    min-height: 0;
+  }
+
+  .columns > div {
+    flex-direction: column;
+  }
+
+  .columns > div > div {
+    width: 100%;
+    max-width: none;
+    min-width: 0;
+    border-right: none;
+    border-top: 1px solid #e2e2e2;
+    min-height: 34px;
+    border-radius: 0;
+  }
+
+  .columns > div > div:first-child {
+    border-top: none;
+  }
+
+  .columns > div > div:last-child {
+    background: #f0d6db;
+    border-top: 1px solid #e2e2e2;
+    border-radius: 0 0 8px 8px;
+    justify-content: flex-start;
+  }
+}
+
+/* Remove any accidental vertical padding on desktop for a clean, flat look */
+@media (width >= 900px) {
+  .columns,
+  .columns > div,
+  .columns > div > div {
+    padding-top: 0;
+    padding-bottom: 0;
   }
 }
